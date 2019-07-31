@@ -14,28 +14,36 @@ async def on_ready():
 async def on_message(message):
     print(f"{message.author.name} ({message.author}) says \"{message.content}\" in channel #{message.channel}")
 
-    guild = client.get_guild(605965627097743402)
+    guild = client.get_guild(605965627097743402) # get the server using its ID
 
+    # BOT COMMANDS
+
+    # list the number of members
     if "!membercount" in message.content.lower() or "!count" in message.content.lower():
         await message.channel.send(f"```{guild.member_count}```") # find a way to subtract number of bots!!!!!!
 
+    # play "Fly Me To The Moon"
     if "!fly me to the moon" in message.content.lower():
         await message.channel.send("Enjoy :) https://www.youtube.com/watch?v=kTxRm9HD7lo")
 
+    # go offline
     if "!logout" in message.content.lower() or "!leave" in message.content.lower() or "!bye" in message.content.lower():
         await message.channel.send("Goodbye :wave:")
         await client.close()
-
+    
+    # list the members along with their status
     if "!memberlist" in message.content.lower():
         
         for m in guild.members:
             await message.channel.send(f"```{m.display_name}::{m.top_role} ({m.status})```")
-
+    
+    # list the members that have been banned from the server
     if "!banlist" in message.content.lower():
 
         for m in await guild.bans():
-            await message.channel.send(f"```{m.user} {m.reason}```")
+            await message.channel.send(f"```{m.user}::{m.reason}```")
 
+    # list the number of people online, offline, idle, and dnd (do not disturb)
     if "!statusreport" in message.content.lower() or "!statuses" in message.content.lower():
         offline = 0
         online = 0
@@ -56,8 +64,9 @@ async def on_message(message):
             elif str(m.status) == "dnd":
                 dnd += 1
 
-        await message.channel.send(f"Offline: {offline}\nOnline: {online}\nIdle: {idle}\nDnd: {dnd}")
+        await message.channel.send(f"```Offline: {offline}\nOnline: {online}\nIdle: {idle}\nDnd: {dnd}```")
 
 
+# run the bot
 client.run(os.environ.get("BOT_TOKEN"))
 
