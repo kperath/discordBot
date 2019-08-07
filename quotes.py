@@ -1,16 +1,24 @@
 from bs4 import BeautifulSoup
 import requests
+import re
+# module that will retrieve quotes
 
-r = requests.get("https://www.google.com/search?q=daredevil+quotes")
+def get_quotes(show):
+    r = requests.get(f"https://www.google.com/search?q=best+{show}+quotes")
 
+    if r.ok:
+        soup = BeautifulSoup(r.text,"lxml")
 
-# add if (status_code == 200) to actual code
-soup = BeautifulSoup(r.text,"lxml")
+        anchors = soup.find_all("a")
 
-#print(soup.prettify())
+        links = ""
 
-for quote in soup.find_all("a"):
-  #  if quote.text[0] == "“" or quote.text[0] == "\"":
-        print(quote.get("href"))
+        for l in anchors:
+            links += l.get("href") + "\n"
 
-        # use re to find all quotes that begin with http: and are not google.com links
+        sites = re.compile(r"http.*").finditer(links)
+
+        for s in sites:
+            print(s)
+
+get_quotes("daredevil")
