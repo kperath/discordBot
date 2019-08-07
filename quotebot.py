@@ -68,9 +68,14 @@ async def on_message(message):
 
         await message.channel.send(f"```Offline: {offline}\nOnline: {online}\nIdle: {idle}\nDnd: {dnd}```")
 
+    # lists quotes found for given argument (media)
     if "!quotelist " in message.content.lower():
 
-        quote_list = quotes.get_quotes("evangelion")
+        media = message.content.lower().replace("!quotelist ","")
+
+        await message.channel.send(f"_**{media.upper()} QUOTES**_")
+        
+        quote_list = quotes.get_quotes(media)
 
         if quote_list == []:
             await message.channel.send("Sorry, no quotes were found :/")
@@ -79,12 +84,11 @@ async def on_message(message):
             for quote in quote_list:
                 await message.channel.send(f"```{quote}```")
 
+    # lists a single quote for the given argument (media)
     if "!quote " in message.content.lower():
 
         media = message.content.lower().replace("!quote ","")
 
-        await message.channel.send(f"_**{media.upper()} QUOTES**_")
-        
         quote_list = quotes.get_quotes(media)
 
         if quote_list == []:

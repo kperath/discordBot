@@ -9,22 +9,24 @@ def get_quotes(show):
     if r.ok:
         soup = BeautifulSoup(r.text,"lxml")
 
-        anchors = soup.find_all("a")
+        anchors = soup.find_all("a") # find all anchor tags (links for sites)
 
         links = ""
 
         for l in anchors:
             links += l.get("href") + "\n"
-
+        
+        # remove all links for stuff that won't have quotes (image sites, video sites, google services)
         sites = re.findall(r"https?://(?!.*google)(?!.*youtube)(?!.*pinterest)(?!.*img.*).+\..+",links)
 
         quotes = []
 
         for s in sites:
             r = requests.get(s)
+            print("SITES")
             print(s)
             if r.ok:
-                quotes = re.findall(r"“.*”",r.text)
+                quotes = re.findall(r"“.*”",r.text) # look for sites with quotation marks
 
                 if (quotes == []): # if no quotes can be found, look at the next site
                     continue
