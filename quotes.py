@@ -16,9 +16,8 @@ def get_quotes(show):
         for l in anchors:
             links += l.get("href") + "\n"
 
-        sites = re.compile(r"htt(ps|p)://(?!.*google)(?!.*youtube)(?!.*pinterest)(?!.*img.*).+\..+").finditer(links)
+        sites = re.findall(r"https?://(?!.*google)(?!.*youtube)(?!.*pinterest)(?!.*img.*).+\..+",links)
 
-        for s in sites:
-            print(s)
+        print(sites)
 
-get_quotes("daredevil")
+get_quotes("godfather")
