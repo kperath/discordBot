@@ -16,7 +16,7 @@ def get_quotes(show):
         for l in anchors:
             links += l.get("href") + "\n"
 
-        sites = re.compile(r"http.*").finditer(links)
+        sites = re.compile(r"htt(ps|p)://(?!.*google)(?!.*youtube)(?!.*pinterest)(?!.*img.*).+\..+").finditer(links)
 
         for s in sites:
             print(s)
