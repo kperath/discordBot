@@ -1,5 +1,7 @@
 import discord
 import os
+import quotes
+import random
 
 # invite: https://discordapp.com/api/oauth2/authorize?client_id=605969794583232542&scope=bot&permissions=67584
 
@@ -66,6 +68,30 @@ async def on_message(message):
 
         await message.channel.send(f"```Offline: {offline}\nOnline: {online}\nIdle: {idle}\nDnd: {dnd}```")
 
+    if "!quotelist " in message.content.lower():
+
+        quote_list = quotes.get_quotes("evangelion")
+
+        if quote_list == []:
+            await message.channel.send("Sorry, no quotes were found :/")
+
+        else:
+            for quote in quote_list:
+                await message.channel.send(f"```{quote}```")
+
+    if "!quote " in message.content.lower():
+
+        media = message.content.lower().replace("!quote ","")
+
+        await message.channel.send(f"_**{media.upper()} QUOTES**_")
+        
+        quote_list = quotes.get_quotes(media)
+
+        if quote_list == []:
+            await message.channel.send("Sorry, no quotes were found :/")
+
+        else:
+            await message.channel.send(f"```{random.choice(quote_list)}```")
 
 # run the bot
 client.run(os.environ.get("BOT_TOKEN"))

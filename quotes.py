@@ -32,13 +32,11 @@ def get_quotes(show):
                    break    # quotes found, end loop
 
         if (quotes == []):
-            print("no quotes were found") # if after entire loop of sites no quotes were found
-            return None 
+            # if after entire loop of sites no quotes were found
+            return [] 
 
         return quotes
 
     else:
-        print("google doesn't like you")
-
-
-get_quotes("evangelion")
+        # if google doesn't allow us to use the search function
+        return []
