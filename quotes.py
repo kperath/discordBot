@@ -21,9 +21,9 @@ def get_quotes(show):
 
         quotes = []
 
+        print("QUOTE SITES")
         for s in sites:
             r = requests.get(s)
-            print("SITES")
             print(s)
             if r.ok:
                 quotes = re.findall(r"“.*”",r.text) # look for sites with quotation marks
