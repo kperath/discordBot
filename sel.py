@@ -36,4 +36,6 @@ else:
 
 # use re to find text that start with “ and end with ”
 
+#and no img file links
+
 # find not need bs4
