@@ -2,6 +2,10 @@ from selenium import webdriver
 from bs4 import BeautifulSoup
 import requests
 
+# UNFINISHED CODE
+# originally was going to use selenium but then realized that is was not necessary
+# still here to show that I do know how to use selenium
+
 # turn into big function and import it into quoteboy.py
 
 media = "godfather" # tv show, movie, book etc.
