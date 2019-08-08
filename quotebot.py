@@ -16,7 +16,7 @@ async def on_ready():
 async def on_message(message):
     print(f"{message.author.name} ({message.author}) says \"{message.content}\" in channel #{message.channel}")
 
-    guild = client.get_guild(605965627097743402) # get the server using its ID
+    guild = client.get_guild(os.environ.get("SERVER_ID") # get the server using its ID
 
     # BOT COMMANDS
 
